@@ -1,17 +1,17 @@
 class Pet {
   final int id;
-  final String name;
-  final String type;
-  final String imageUrl;
-  final String characteristics;
-  final String careTips;
+  final String name;        // Nama spesies/ras (misal: Persia, Golden Retriever)
+  final String type;        // Jenis utama (Kucing, Anjing, Kelinci, dll)
+  final String imagePath;   // Path asset lokal, bukan URL
+  final String traits;      // Karakteristik singkat
+  final String careTips;    // Tips perawatan singkat
 
   Pet({
     required this.id,
     required this.name,
     required this.type,
-    required this.imageUrl,
-    required this.characteristics,
+    required this.imagePath,
+    required this.traits,
     required this.careTips,
   });
 }

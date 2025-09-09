@@ -5,8 +5,7 @@ class PetListTile extends StatelessWidget {
   final Pet pet;
   final VoidCallback onTap;
 
-  const PetListTile({Key? key, required this.pet, required this.onTap})
-      : super(key: key);
+  const PetListTile({required this.pet, required this.onTap, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +14,8 @@ class PetListTile extends StatelessWidget {
       child: ListTile(
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: Image.network(
-            pet.imageUrl,
+          child: Image.asset(
+            pet.imagePath,
             width: 64,
             height: 64,
             fit: BoxFit.cover,
@@ -25,6 +24,7 @@ class PetListTile extends StatelessWidget {
                 color: Colors.grey[200],
                 width: 64,
                 height: 64,
+                alignment: Alignment.center,
                 child: const Icon(Icons.pets),
               );
             },
