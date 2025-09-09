@@ -19,6 +19,8 @@ class PetDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(pet.name),
@@ -29,18 +31,20 @@ class PetDetailPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Center(
+            // Gambar full width, tinggi menyesuaikan rasio
+            Hero(
+              tag: 'pet-${pet.id}',
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
                   pet.imagePath,
-                  width: double.infinity,
-                  height: 220,
+                  width: width,
+                  height: width * 0.7, // tinggi 70% dari lebar layar
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
-                      width: double.infinity,
-                      height: 220,
+                      width: width,
+                      height: width * 0.7,
                       color: AppColors.limeLight.withValues(alpha: 0.3),
                       alignment: Alignment.center,
                       child: const Icon(Icons.pets, size: 80),
@@ -64,23 +68,6 @@ class PetDetailPage extends StatelessWidget {
             sectionTitle('Tips Perawatan Singkat'),
             Text(pet.careTips),
             const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton.icon(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.tealDark,
-                ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('${pet.name} ditandai sementara!'),
-                      backgroundColor: AppColors.tealDark,
-                    ),
-                  );
-                },
-                icon: const Icon(Icons.check),
-                label: const Text('Tandai / Simpan (sementara)'),
-              ),
-            ),
           ],
         ),
       ),

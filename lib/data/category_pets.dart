@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../data/pets_data.dart';
 import '../models/pet.dart';
 import '../theme/app_colors.dart';
+import '../pages/pet_detail_page.dart';
 
 class CategoryPage extends StatelessWidget {
   final String category;
@@ -9,7 +10,7 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ambil data sesuai tipe (case-insensitive)
+    // Filter data sesuai tipe hewan (case-insensitive)
     final List<Pet> items = petsData
         .where((p) => p.type.toLowerCase() == category.toLowerCase())
         .toList();
@@ -38,40 +39,52 @@ class CategoryPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => PetDetailPage(pet: p),
+                        ),
+                      );
+                    },
                     contentPadding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 8,
                     ),
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        p.imagePath,
-                        width: 64,
-                        height: 64,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => Container(
+                    leading: Hero(
+                      tag: 'pet-${p.id}',
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.asset(
+                          p.imagePath,
                           width: 64,
                           height: 64,
-                          color: AppColors.limeLight.withValues(alpha: 0.3),
-                          alignment: Alignment.center,
-                          child: const Icon(Icons.pets),
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Container(
+                            width: 64,
+                            height: 64,
+                            color: AppColors.limeLight.withValues(alpha: 0.3),
+                            alignment: Alignment.center,
+                            child: const Icon(Icons.pets),
+                          ),
                         ),
                       ),
                     ),
                     title: Text(
                       p.name,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     subtitle: Text(
                       p.traits,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    trailing:
-                        Icon(Icons.chevron_right, color: AppColors.darkGray),
-                    onTap: () {
-                      // TODO: navigasi ke detail pet
-                    },
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: AppColors.darkGray.withValues(alpha: 200),
+                    ),
                   ),
                 );
               },
