@@ -2,62 +2,26 @@ import 'package:flutter/material.dart';
 import 'pages/pet_list_page.dart';
 
 void main() {
-  runApp(const PetCatalogApp());
+  runApp(const MyApp());
 }
 
-class PetCatalogApp extends StatelessWidget {
-  const PetCatalogApp({Key? key}) : super(key: key);
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Katalog Hewan Peliharaan',
+      title: 'Aplikasi Hewan Peliharaan',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      home: const SplashScreen(),
-    );
-  }
-}
-
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    // Tunggu 10 detik lalu pindah ke PetListPage
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => PetListPage()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.teal,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // Ganti logo dengan asset/logo kamu
-            Image.asset(
-              'assets/images/logo.png',
-              width: 150,
-              height: 150,
-            ),
-          ],
+        fontFamily: 'Roboto',
+        scaffoldBackgroundColor: const Color(0xFF181A20),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: const Color(0xFF5AA9A3),
+          secondary: const Color(0xFFF4743B),
         ),
       ),
+      home: const PetListPage(),
     );
   }
 }
