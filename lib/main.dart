@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'pages/pet_list_page.dart';
+import 'pages/splash_screen.dart';
+import 'theme/app_colors.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
   runApp(const MyApp());
 }
 
@@ -15,13 +23,17 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Roboto',
-        scaffoldBackgroundColor: const Color(0xFF181A20),
-        colorScheme: ColorScheme.fromSwatch().copyWith(
-          primary: const Color(0xFF5AA9A3),
-          secondary: const Color(0xFFF4743B),
-        ),
+        scaffoldBackgroundColor: AppColors.darkBg,
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.greenFresh),
+        useMaterial3: false,
+        textTheme: const TextTheme().apply(bodyColor: Colors.black87),
       ),
-      home: const PetListPage(),
+      // start from splash screen
+      home: const SplashScreen(),
+      // still keep PetListPage import available for navigation after splash
+      routes: {
+        '/home': (_) => const PetListPage(),
+      },
     );
   }
 }
